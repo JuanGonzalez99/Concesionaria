@@ -64,7 +64,7 @@ void menuEliminar()
         cout << "Coche inexistente" << endl;
 }
 
-void subMenu();
+void subMenu(char*);
 
 void menuSeleccionar()
 {
@@ -73,11 +73,9 @@ void menuSeleccionar()
     char patente[10];
     sys::getline(patente, 10);
     if(existeCoche(patente))
-        subMenu();
-    else{
-        cout << "Patente no registrada" << endl;
-        pedirEnter();
-    }
+        subMenu(patente);
+    else
+        cout << "\nPatente no registrada" << endl;
 }
 
 #endif // MENU_H_INCLUDED

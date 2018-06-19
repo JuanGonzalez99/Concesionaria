@@ -90,7 +90,6 @@ int main()
         case 'C': menuEliminar();
             break;
         case 'D': menuSeleccionar();
-                  continue;
             break;
         case 'S':
             cout << "Nos vemos gaturro" << endl;
