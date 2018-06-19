@@ -62,14 +62,12 @@ void subMenu(char* patente)
         }break;
         case 'E':
         {
-            cout << "En construccion"; //subMenuModificar(patente);
+            subMenuModificar(patente);
         }break;
         case 'F':
         {
             if(!subMenuEliminar(patente))
-            {
                 break;
-            }
         }
         case 'V':
         {
@@ -89,6 +87,11 @@ void subMenu(char* patente)
 void subMenuMostrar(char* patente)
 {
     mostrarCoche(buscarCoche(patente));
+}
+
+void subMenuModificar(char* patente)
+{
+    modificarCoche(patente);
 }
 
 bool subMenuEliminar(char* patente)

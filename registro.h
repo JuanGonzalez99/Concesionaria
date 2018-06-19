@@ -116,4 +116,30 @@ void eliminarCoche(char patente[])
     rename("temp.dat", DIR_ARCHIVO);
 }
 
+void modificarCoche(char patente[])
+{
+    ifstream entrada;
+    ofstream temporal;
+    entrada.open(DIR_ARCHIVO, ios::binary);
+    temporal.open("temp.dat", ios::binary);
+    char a[30]="a", b[20]="b", d[10]="d";
+    Coche c(a, b, d);
+    while(entrada.read((char*)&c, sizeof(Coche)))
+    {
+        if(strcmp(patente, c.getPatente())==0)
+        {
+            Coche actualizado = leerCoche();
+            temporal.write((char*)&actualizado, sizeof(Coche));
+        }
+        else
+        {
+            temporal.write((char*)&c, sizeof(Coche));
+        }
+    }
+    entrada.close();
+    temporal.close();
+    remove(DIR_ARCHIVO);
+    rename("temp.dat", DIR_ARCHIVO);
+}
+
 #endif // REGISTRO_H_INCLUDED
