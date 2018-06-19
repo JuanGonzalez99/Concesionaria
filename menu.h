@@ -74,8 +74,10 @@ void menuSeleccionar()
     sys::getline(patente, 10);
     if(existeCoche(patente))
         subMenu();
-    else
+    else{
         cout << "Patente no registrada" << endl;
+        pedirEnter();
+    }
 }
 
 #endif // MENU_H_INCLUDED
