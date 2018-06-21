@@ -55,7 +55,7 @@ void subMenu(char* patente)
         }break;
         case 'C':
         {
-            cout << "En construccion"; //subMenuCargarNafta(seleccionado);
+            subMenuCargarNafta(seleccionado);
         }break;
         case 'D':
         {
@@ -107,19 +107,25 @@ void subMenuEncenderApagar(Coche c)
 
 void subMenuCargarNafta(Coche c)
 {
-
+    int cantidad;
+    cout << "Cuanto desea cargar? ";
+    cin >> cantidad;
+    cin.ignore();
+    c.setNafta(cantidad);
+    cout << "\nNafta restante: " << c.getNafta() << endl;
+    guardarCambios(c);
 }
 
 void subMenuViaje(Coche c)
 {
     if(!c.getMotor())
     {
-        cout << "No encendiste el auto capo";
+        cout << "No encendiste el auto capo" << endl;
         return;
     }
     if(c.getNafta()==0)
     {
-        cout << "Tanque vacio!";
+        cout << "Tanque vacio!" << endl;
         return;
     }
     int consumo;
@@ -129,12 +135,15 @@ void subMenuViaje(Coche c)
     cout << endl;
     if((c.getNafta()-consumo)<0)
     {
-        cout << "No llegas ni empujando el auto papu, andá a la Shell o tomate un bondi";
+        cout << "No llegas ni empujando el auto papu, anda a la Shell o tomate un bondi" << endl;
         return;
     }
     consumo *= -1;
     c.setNafta(consumo);
-    cout << "Te queda " << c.getNafta() << " de nafta capo";
+    if(c.getNafta()==0)
+        cout << "No dejaste ni una gota de combustible, suerte para volver" << endl;
+    else
+        cout << "Te queda " << c.getNafta() << " de nafta capo" << endl;
     guardarCambios(c);
 }
 
