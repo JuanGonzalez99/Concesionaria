@@ -5,11 +5,12 @@ void menuCrear()
 {
     cout << "CREACION DE NUEVO AUTO" << endl << endl;
     Coche nuevo = leerCoche();
+    cout << endl;
     if(existeCoche(nuevo.getPatente()))
         cout << "Patente ya existente" << endl;
     else{
         ingresarCoche(nuevo);
-        cout << "\nCoche creado exitosamente" << endl;
+        cout << "Coche creado exitosamente" << endl;
     }
 }
 

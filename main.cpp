@@ -34,6 +34,7 @@ const char DIR_ARCHIVO[]="autos.dat";
 
 void pedirEnter();
 void strToUpper(char* c);
+void menuPrincipal();
 
 //*****************************************************************************
 //                             INCLUSIONES PERSONALES
@@ -52,6 +53,28 @@ using namespace std;
 
 
 int main()
+{
+    menuPrincipal();
+    return 0;
+}
+
+void pedirEnter()
+{
+    char enter[1];
+    cout << "\n\n\n(Presione enter para continuar)";
+    sys::getline(enter, 1);
+}
+
+void strToUpper(char* c)
+{
+    for(int i=0;c[i]!='\0';i++)
+    {
+        if(c[i]>='a' && c[i]<='z')
+            c[i] = c[i]-32;
+    }
+}
+
+void menuPrincipal()
 {
     bool salir=false;
     while(!salir)
@@ -96,23 +119,6 @@ int main()
             salir=true;
         }
         pedirEnter();
-    }
-    return 0;
-}
-
-void pedirEnter()
-{
-    char enter[1];
-    cout << "\n\n\n(Presione enter para continuar)";
-    sys::getline(enter, 1);
-}
-
-void strToUpper(char* c)
-{
-    for(int i=0;c[i]!='\0';i++)
-    {
-        if(c[i]>='a' && c[i]<='z')
-            c[i] = c[i]-32;
     }
 }
 
