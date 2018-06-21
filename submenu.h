@@ -107,13 +107,30 @@ void subMenuEncenderApagar(Coche c)
 
 void subMenuCargarNafta(Coche c)
 {
-    int cantidad;
+    char cadCantidad[11];
     cout << "Cuanto desea cargar? ";
-    cin >> cantidad;
-    cin.ignore();
-    c.setNafta(cantidad);
-    cout << "\nNafta restante: " << c.getNafta() << endl;
-    guardarCambios(c);
+    sys::getline(cadCantidad, 11);
+    while(!validarEntero(cadCantidad) || strlen(cadCantidad)>9)
+    {
+        if(!validarEntero(cadCantidad))
+            cout << "No te hagas el loco: ";
+        else
+            cout << "Por favor, ingrese un numero de no mas de 9 digitos: ";
+        sys::getline(cadCantidad, 11);
+    }
+
+    int cantidad = strToInt(cadCantidad);
+    cout << endl;
+    if((cantidad+c.getNafta())>999999999)
+    {
+        cout << "El tanque tiene una capacidad maxima de 999.999.999, lo 100to" << endl;
+    }
+    else
+    {
+        c.setNafta(cantidad);
+        cout << "Nafta restante: " << c.getNafta() << endl;
+        guardarCambios(c);
+    }
 }
 
 void subMenuViaje(Coche c)
@@ -128,10 +145,19 @@ void subMenuViaje(Coche c)
         cout << "Tanque vacio!" << endl;
         return;
     }
-    int consumo;
+    char cadConsumo[11];
     cout << "Cuanto vas a gastar de Gasoil hermano? ";
-    cin >> consumo;
-    cin.ignore();
+    sys::getline(cadConsumo, 11);
+    while(!validarEntero(cadConsumo) || strlen(cadConsumo)>9)
+    {
+        if(!validarEntero(cadConsumo))
+            cout << "No te hagas el loco: ";
+        else
+            cout << "Por favor, ingrese un numero de no mas de 9 digitos: ";
+        sys::getline(cadConsumo, 11);
+    }
+
+    int consumo = strToInt(cadConsumo);
     cout << endl;
     if((c.getNafta()-consumo)<0)
     {

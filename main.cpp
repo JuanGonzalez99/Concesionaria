@@ -33,8 +33,11 @@
 const char DIR_ARCHIVO[]="autos.dat";
 
 void pedirEnter();
-void strToUpper(char* c);
+void strToUpper(char*);
+int strToInt(char*);
 void menuPrincipal();
+bool validarEntero(char*);
+
 
 //*****************************************************************************
 //                             INCLUSIONES PERSONALES
@@ -72,6 +75,39 @@ void strToUpper(char* c)
         if(c[i]>='a' && c[i]<='z')
             c[i] = c[i]-32;
     }
+}
+
+bool validarEntero(char* c)
+{
+    int x=0;
+    do
+    {
+        if( c[x] < '0' || c[x] > '9' )
+        {
+            return false;
+        }
+
+    }while(c[++x]!='\0');
+
+    return true;
+}
+
+int strToInt(char* c)
+{
+    int longitud=0, cadenaInt=0, base10=1, aux, x;
+
+    while( c[longitud]!='\0' )
+    {
+        longitud++;
+    }
+
+    for( x=longitud-1; x>=0 ; x-- )
+    {
+        aux=((int)c[x])-48;
+        cadenaInt+=aux*base10;
+        base10*=10;
+    }
+    return cadenaInt;
 }
 
 void menuPrincipal()
