@@ -63,7 +63,8 @@ Coche buscarCoche(char patente[])
             return c;
         }
     }
-    return c; // NO ES NECESARIO PERO LO PONGO PORQUE ME LA BANCO
+    cout << "Error";
+    return c;
 }
 
 void mostrarCoche(Coche c)
@@ -72,6 +73,7 @@ void mostrarCoche(Coche c)
     cout << "Color: " << c.getColor() << endl;
     cout << "Patente: " << c.getPatente() << endl;
     cout << "Nafta: " << c.getNafta() << endl;
+    cout << "Motor: "; if(c.getMotor()) cout << "Encendido"; else cout << "Apagado"; cout << endl;
     cout << endl;
 }
 
@@ -130,6 +132,31 @@ void modificarCoche(char patente[])
         {
             Coche actualizado = leerCoche();
             temporal.write((char*)&actualizado, sizeof(Coche));
+        }
+        else
+        {
+            temporal.write((char*)&c, sizeof(Coche));
+        }
+    }
+    entrada.close();
+    temporal.close();
+    remove(DIR_ARCHIVO);
+    rename("temp.dat", DIR_ARCHIVO);
+}
+
+void guardarCambios(Coche modificado)
+{
+    ifstream entrada;
+    ofstream temporal;
+    entrada.open(DIR_ARCHIVO, ios::binary);
+    temporal.open("temp.dat", ios::binary);
+    char a[30]="a", b[20]="b", d[10]="d";
+    Coche c(a, b, d);
+    while(entrada.read((char*)&c, sizeof(Coche)))
+    {
+        if(strcmp(modificado.getPatente(), c.getPatente())==0)
+        {
+            temporal.write((char*)&modificado, sizeof(Coche));
         }
         else
         {

@@ -11,12 +11,14 @@ public:
     char* getColor();
     char* getPatente();
     int getNafta();
+    bool getMotor();
+    void setNafta(int);
+    void setMotor(bool);
 
 protected:
     void setMarca(char[]);
     void setColor(char[]);
     void setPatente(char[]);
-    void setNafta(int);
 
 private:
     char marca[30];

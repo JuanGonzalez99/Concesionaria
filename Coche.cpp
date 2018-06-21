@@ -1,5 +1,6 @@
 #include "Coche.h"
 #include <string.h>
+#include <iostream>
 
 Coche::Coche(char m[], char c[], char p[])
 {
@@ -37,12 +38,19 @@ int Coche::getNafta(){
     return nafta;
 }
 
+bool Coche::getMotor(){
+    return motor.getEncendido();
+}
+
 void Coche::setNafta(int c)
 {
     nafta+=c;
 }
 
-
+void Coche::setMotor(bool b)
+{
+    motor.setEncendido(b);
+}
 
 
 

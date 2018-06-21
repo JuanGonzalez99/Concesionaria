@@ -7,8 +7,10 @@ void menuCrear()
     Coche nuevo = leerCoche();
     if(existeCoche(nuevo.getPatente()))
         cout << "Patente ya existente" << endl;
-    else
+    else{
         ingresarCoche(nuevo);
+        cout << "\nCoche creado exitosamente" << endl;
+    }
 }
 
 void menuListar()
@@ -61,7 +63,7 @@ void menuEliminar()
         }
     }// FIN DE IF
     else
-        cout << "Coche inexistente" << endl;
+        cout << "\nCoche inexistente" << endl;
 }
 
 void subMenu(char*);

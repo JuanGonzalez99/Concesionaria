@@ -4,9 +4,9 @@
 #include "menu.h"
 
 void subMenuMostrar(char*);
-void subMenuEncender(char*);
-void subMenuCargarNafta(char*);
-void subMenuViaje(char*);
+void subMenuEncenderApagar(Coche);
+void subMenuCargarNafta(Coche);
+void subMenuViaje(Coche);
 void subMenuModificar(char*);
 bool subMenuEliminar(char*);
 
@@ -15,11 +15,12 @@ void subMenu(char* patente)
     bool salir=false;
     while(!salir)
     {
+        Coche seleccionado = buscarCoche(patente);
         sys::cls();
         cout << "#============================#" << endl;
         cout << "|                            |" << endl;
-        cout << "|     A.  Mostrar            |" << endl;
-        cout << "|     B.  Encender           |" << endl;
+        cout << "|     A.  Mostrar            |" << endl; if(buscarCoche(patente).getMotor())
+        cout << "|     B.  Apagar             |" << endl; else cout << "|     B.  Encender           |" << endl;
         cout << "|     C.  Cargar nafta       |" << endl;
         cout << "|     D.  Realizar viaje     |" << endl;
         cout << "|     E.  Modificar          |" << endl;
@@ -50,15 +51,15 @@ void subMenu(char* patente)
         }break;
         case 'B':
         {
-            cout << "En construccion"; //subMenuEncender(patente);
+            subMenuEncenderApagar(seleccionado);
         }break;
         case 'C':
         {
-            cout << "En construccion"; //subMenuCargarNafta(patente);
+            cout << "En construccion"; //subMenuCargarNafta(seleccionado);
         }break;
         case 'D':
         {
-            cout << "En construccion"; //subMenuViaje(patente);
+            subMenuViaje(seleccionado);
         }break;
         case 'E':
         {
@@ -87,6 +88,50 @@ void subMenu(char* patente)
 void subMenuMostrar(char* patente)
 {
     mostrarCoche(buscarCoche(patente));
+}
+
+void subMenuEncenderApagar(Coche c)
+{
+    if(c.getMotor())
+    {
+        c.setMotor(false);
+    }
+    else
+    {
+        c.setMotor(true);
+    }
+    guardarCambios(c);
+}
+
+void subMenuCargarNafta(Coche c)
+{
+
+}
+
+void subMenuViaje(Coche c)
+{
+    if(!c.getMotor())
+    {
+        cout << "No encendiste el auto capo";
+        return;
+    }
+    if(c.getNafta()==0)
+    {
+        cout << "Tanque vacio!";
+        return;
+    }
+    int consumo;
+    cout << "Cuanto vas a gastar de Gasoil hermano? ";
+    cin >> consumo;
+    cin.ignore();
+    if((c.getNafta()-consumo)<0)
+    {
+        cout << "No llegas ni empujando el auto papu, andá a la Shell o tomate un bondi";
+        return;
+    }
+    consumo *= -1;
+    c.setNafta(consumo);
+    guardarCambios(c);
 }
 
 void subMenuModificar(char* patente)
