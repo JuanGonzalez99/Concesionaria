@@ -118,31 +118,44 @@ void eliminarCoche(char patente[])
     rename("temp.dat", DIR_ARCHIVO);
 }
 
-void modificarCoche(char patente[])
+Coche cambiarCoche(Coche c)
 {
-    ifstream entrada;
-    ofstream temporal;
-    entrada.open(DIR_ARCHIVO, ios::binary);
-    temporal.open("temp.dat", ios::binary);
-    char a[30]="a", b[20]="b", d[10]="d";
-    Coche c(a, b, d);
-    while(entrada.read((char*)&c, sizeof(Coche)))
-    {
-        if(strcmp(patente, c.getPatente())==0)
-        {
-            Coche actualizado = leerCoche();
-            temporal.write((char*)&actualizado, sizeof(Coche));
-        }
-        else
-        {
-            temporal.write((char*)&c, sizeof(Coche));
-        }
-    }
-    entrada.close();
-    temporal.close();
-    remove(DIR_ARCHIVO);
-    rename("temp.dat", DIR_ARCHIVO);
+    char marca[30], color[20];
+    cout << "Marca: ";
+    sys::getline(marca, 30);
+    cout << "Color: ";
+    sys::getline(color, 20);
+    Coche aux(marca, color, c.getPatente());
+    aux.setNafta(c.getNafta());
+    aux.setMotor(c.getMotor());
+    return aux;
 }
+
+//void modificarCoche(char patente[])
+//{
+//    ifstream entrada;
+//    ofstream temporal;
+//    entrada.open(DIR_ARCHIVO, ios::binary);
+//    temporal.open("temp.dat", ios::binary);
+//    char a[30]="a", b[20]="b", d[10]="d";
+//    Coche c(a, b, d);
+//    while(entrada.read((char*)&c, sizeof(Coche)))
+//    {
+//        if(strcmp(patente, c.getPatente())==0)
+//        {
+//            Coche actualizado = leerCoche();
+//            temporal.write((char*)&actualizado, sizeof(Coche));
+//        }
+//        else
+//        {
+//            temporal.write((char*)&c, sizeof(Coche));
+//        }
+//    }
+//    entrada.close();
+//    temporal.close();
+//    remove(DIR_ARCHIVO);
+//    rename("temp.dat", DIR_ARCHIVO);
+//}
 
 void guardarCambios(Coche modificado)
 {

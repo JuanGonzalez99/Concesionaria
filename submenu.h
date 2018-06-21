@@ -7,7 +7,7 @@ void subMenuMostrar(char*);
 void subMenuEncenderApagar(Coche);
 void subMenuCargarNafta(Coche);
 void subMenuViaje(Coche);
-void subMenuModificar(char*);
+void subMenuModificar(Coche);
 bool subMenuEliminar(char*);
 
 void subMenu(char* patente)
@@ -63,7 +63,7 @@ void subMenu(char* patente)
         }break;
         case 'E':
         {
-            subMenuModificar(patente);
+            subMenuModificar(seleccionado);
         }break;
         case 'F':
         {
@@ -138,9 +138,9 @@ void subMenuViaje(Coche c)
     guardarCambios(c);
 }
 
-void subMenuModificar(char* patente)
+void subMenuModificar(Coche c)
 {
-    modificarCoche(patente);
+    guardarCambios(cambiarCoche(c));
 }
 
 bool subMenuEliminar(char* patente)
