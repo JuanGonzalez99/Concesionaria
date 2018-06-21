@@ -95,10 +95,12 @@ void subMenuEncenderApagar(Coche c)
     if(c.getMotor())
     {
         c.setMotor(false);
+        cout << "Motor apagado" << endl;
     }
     else
     {
         c.setMotor(true);
+        cout << "Motor encendido" << endl;
     }
     guardarCambios(c);
 }
@@ -124,6 +126,7 @@ void subMenuViaje(Coche c)
     cout << "Cuanto vas a gastar de Gasoil hermano? ";
     cin >> consumo;
     cin.ignore();
+    cout << endl;
     if((c.getNafta()-consumo)<0)
     {
         cout << "No llegas ni empujando el auto papu, andá a la Shell o tomate un bondi";
@@ -131,6 +134,7 @@ void subMenuViaje(Coche c)
     }
     consumo *= -1;
     c.setNafta(consumo);
+    cout << "Te queda " << c.getNafta() << " de nafta capo";
     guardarCambios(c);
 }
 
