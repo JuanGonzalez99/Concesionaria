@@ -1,24 +1,18 @@
 //*****************************************************************************
 //                       CONFIGURACION MULTIPLATAFORMA
 //=============================================================================
-// COMPILACION EN WINDOWS
-//-----------------------------------------------------------------------------
-// Si este programa se va a compilar en Windows, descomente las tres lineas
-// siguientes, y comente las tres lineas de "COMPILACION EN LINUX".
-//-----------------------------------------------------------------------------
-#ifndef _WIN32
-  # define _WIN32
+#ifdef _WIN32
+           #define _WIN32
+   //  Windows (32-bit)
+#elif __linux
+           #define _LINUX
+    // linux
+#elif __unix // all unices not caught above
+    // Unix
+#elif __posix
+    // POSIX
 #endif
 
-//=============================================================================
-// COMPILACION EN LINUX
-//-----------------------------------------------------------------------------
-// Si este programa se va a compilar en Linux, descomente las tres lineas
-// siguientes, y comente las tres lineas de "COMPILACION EN WINDOWS".
-//-----------------------------------------------------------------------------
-//#ifndef _LINUX
-//  # define _LINUX
-//#endif
 
 //*****************************************************************************
 //                             INCLUSIONES ESTANDAR

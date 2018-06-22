@@ -1,6 +1,8 @@
 #ifndef REGISTRO_H_INCLUDED
 #define REGISTRO_H_INCLUDED
 
+#include "string.h"
+
 using namespace std;
 
 void ingresarCoche(Coche c)
