@@ -12,7 +12,8 @@ public:
     char* getPatente();
     int getNafta();
     bool getMotor();
-    void setNafta(int);
+    void cargarNafta(int);
+    void gastarNafta(int);
     void setMotor(bool);
 
 protected:

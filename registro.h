@@ -5,9 +5,10 @@
 
 using namespace std;
 
-void ingresarCoche(Coche c)
+void agregarCoche(Coche c)
 {
     ofstream salida;
+
     salida.open(DIR_ARCHIVO, ios::binary | ios::app);
     salida.write((char*)&c, sizeof(Coche));
     salida.close();
@@ -16,12 +17,14 @@ void ingresarCoche(Coche c)
 Coche leerCoche()
 {
     char marca[30], color[20], patente[10];
+
     cout << "Marca: ";
     sys::getline(marca, 30);
     cout << "Color: ";
     sys::getline(color, 20);
     cout << "Patente: ";
     sys::getline(patente, 10);
+
     Coche c(marca, color, patente);
     return c;
 }
@@ -55,17 +58,18 @@ Coche buscarCoche(char patente[])
 {
     char a[30]="a", b[20]="b", d[10]="d";
     Coche c(a, b, d);
+
     ifstream entrada;
     entrada.open(DIR_ARCHIVO, ios::binary);
-    while(entrada.read((char*)&c, sizeof(Coche)))
+    while( entrada.read((char*)&c, sizeof(Coche)) )
     {
-        if(strcmp(patente, c.getPatente())==0)
+        if( strcmp(patente, c.getPatente())==0 )
         {
             entrada.close();
             return c;
         }
     }
-    cout << "Error";
+    cout << TEXTO_ERROR;
     return c;
 }
 
@@ -83,11 +87,12 @@ void listarCoches()
 {
     ifstream entrada;
     entrada.open(DIR_ARCHIVO, ios::binary);
+
     char a[30]="a", b[20]="b", d[10]="d";
     Coche c(a, b, d);
-    if(entrada.good())
+    if( entrada.good() )
     {
-        while(entrada.read((char*)&c, sizeof(Coche)))
+        while( entrada.read((char*)&c, sizeof(Coche)) )
         {
             mostrarCoche(c);
         }
@@ -103,13 +108,15 @@ void eliminarCoche(char patente[])
 {
     ifstream entrada;
     ofstream temporal;
+
     entrada.open(DIR_ARCHIVO, ios::binary);
     temporal.open("temp.dat", ios::binary);
+
     char a[30]="a", b[20]="b", d[10]="d";
     Coche c(a, b, d);
-    while(entrada.read((char*)&c, sizeof(Coche)))
+    while( entrada.read((char*)&c, sizeof(Coche)) )
     {
-        if(strcmp(patente, c.getPatente())!=0)
+        if( strcmp(patente, c.getPatente())!=0 )
         {
             temporal.write((char*)&c, sizeof(Coche));
         }
@@ -128,7 +135,8 @@ Coche cambiarCoche(Coche c)
     cout << "Color: ";
     sys::getline(color, 20);
     Coche aux(marca, color, c.getPatente());
-    aux.setNafta(c.getNafta());
+
+    aux.cargarNafta(c.getNafta());
     aux.setMotor(c.getMotor());
     return aux;
 }
@@ -167,9 +175,9 @@ void guardarCambios(Coche modificado)
     temporal.open("temp.dat", ios::binary);
     char a[30]="a", b[20]="b", d[10]="d";
     Coche c(a, b, d);
-    while(entrada.read((char*)&c, sizeof(Coche)))
+    while( entrada.read((char*)&c, sizeof(Coche)) )
     {
-        if(strcmp(modificado.getPatente(), c.getPatente())==0)
+        if( strcmp(modificado.getPatente(), c.getPatente())==0 )
         {
             temporal.write((char*)&modificado, sizeof(Coche));
         }

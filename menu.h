@@ -1,16 +1,92 @@
 #ifndef MENU_H_INCLUDED
 #define MENU_H_INCLUDED
 
+#include "submenu.h"
+
+void menuCrear();
+void menuListar();
+void menuEliminar();
+void menuSeleccionar();
+
+void menuPrincipal()
+{
+    bool salir=false;
+    while(!salir)
+    {
+        sys::cls();
+        cout << "#============================#" << endl;
+        cout << "|                            |" << endl;
+        cout << "|    A.  Crear auto          |" << endl;
+        cout << "|    B.  Listar autos        |" << endl;
+        cout << "|    C.  Eliminar auto       |" << endl;
+        cout << "|    D.  Seleccionar auto    |" << endl;
+        cout << "|                            |" << endl;
+        cout << "|         S. Salir           |" << endl;
+        cout << "|                            |" << endl;
+        cout << "*----------------------------*" << endl;
+        cout << endl;
+        cout << "Ingrese una opcion: ";
+        char opcion[2];
+        sys::getline(opcion, 2);
+        strToUpper(opcion);
+        while(strlen(opcion)!=1 || opcion[0]<'A' || (opcion[0]>'D' && opcion[0]!='S'))
+        {
+            cout << "Opcion incorrecta, intente nuevamente: ";
+            sys::getline(opcion, 2);
+            strToUpper(opcion);
+        }
+
+        sys::cls();
+
+        switch(opcion[0])
+        {
+        case 'A':
+            {
+                menuCrear();
+            }
+            break;
+        case 'B':
+            {
+                menuListar();
+            }
+            break;
+        case 'C':
+            {
+                menuEliminar();
+            }
+            break;
+        case 'D':
+            {
+                menuSeleccionar();
+            }
+            break;
+        case 'S':
+            {
+                cout << "Hasta la proxima" << endl;
+                salir=true;
+            }
+
+        }//Fin switch
+
+        pedirEnter();
+
+    }//Fin while
+}
+
 void menuCrear()
 {
     cout << "CREACION DE NUEVO AUTO" << endl << endl;
     Coche nuevo = leerCoche();
     cout << endl;
-    if(existeCoche(nuevo.getPatente()))
+    if( existeCoche(nuevo.getPatente()) )
         cout << "Patente ya existente" << endl;
-    else{
-        ingresarCoche(nuevo);
-        cout << "Coche creado exitosamente" << endl;
+    else
+    {
+        agregarCoche(nuevo);
+        if( existeCoche(nuevo.getPatente()) )
+            cout << "Coche creado exitosamente" << endl;
+        else
+            cout << TEXTO_ERROR << endl;
     }
 }
 
@@ -24,55 +100,31 @@ void menuEliminar()
 {
     cout << "ELIMINACION DE AUTO" << endl << endl;
     char patente[10];
-    cout << "Patente: ";
+    cout << "Ingrese la patente: ";
     sys::getline(patente, 10);
     if(existeCoche(patente))
     {
         sys::cls();
-        cout << "Esta seguro que desea eliminar este auto?" << endl;
-        cout << endl;
         mostrarCoche(buscarCoche(patente));
-        cout << "Si -> S"<< endl;
-        cout << "No -> N"<< endl << endl;
-        char opcion[2];
-        sys::getline(opcion, 2);
-        char op=opcion[0];
-        while(strlen(opcion)!=1 || (op!='s' && op!='S' && op!='n' && op!='N'))
-        {
-            if(strlen(opcion)!=1)
-                cout << "Ingrese un caracter: ";
-            else
-                cout << "No le he entendido, podria repetirme? ";
-            sys::getline(opcion, 2);
-            op=opcion[0];
-        }
-        switch(op)
-        {
-        case 's':
-        case 'S':
+
+        if( confirmar("\n\nEsta seguro que desea eliminar este auto?(s/n) ") )
         {
             eliminarCoche(patente);
             cout << endl;
-            cout << "Registro eliminado exitosamente" << endl;
+            if(!existeCoche(patente))
+                cout << "Registro eliminado exitosamente" << endl;
+            else
+                cout << TEXTO_ERROR << endl;
         }
-        break;
-        case 'n':
-        case 'N':
-            break;
-        default:
-            cout << "Algo salio mal";
-        }
-    }// FIN DE IF
+    }
     else
         cout << "\nCoche inexistente" << endl;
 }
 
-void subMenu(char*);
-
 void menuSeleccionar()
 {
     cout << "SELECCION DE AUTO" << endl << endl;
-    cout << "Patente: ";
+    cout << "Ingrese la patente: ";
     char patente[10];
     sys::getline(patente, 10);
     if(existeCoche(patente))

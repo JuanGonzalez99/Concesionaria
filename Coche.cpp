@@ -42,9 +42,14 @@ bool Coche::getMotor(){
     return motor.getEncendido();
 }
 
-void Coche::setNafta(int c)
+void Coche::cargarNafta(int c)
 {
     nafta+=c;
+}
+
+void Coche::gastarNafta(int c)
+{
+    nafta-=c;
 }
 
 void Coche::setMotor(bool b)
